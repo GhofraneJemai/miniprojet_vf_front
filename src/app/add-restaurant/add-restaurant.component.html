@@ -1,0 +1,27 @@
+<div class="container">
+    <div>
+      <h2>Ajouter un Restaurant :</h2>
+    </div>
+    <form>
+      <div class="col-sm-2 col-md-2 col-lg-2">
+        <label>ID Restaurant</label>
+        <input type="text" [(ngModel)]="newRestaurant.idRestaurant" name="idRestaurant" class="form-control">
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Nom Restaurant</label>
+        <input type="text" [(ngModel)]="newRestaurant.nomRestaurant" name="nomRestaurant" class="form-control">
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Adresse Restaurant</label>
+        <input type="text" [(ngModel)]="newRestaurant.adresseRestaurant" name="adresseRestaurant" class="form-control">
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Date Ouverture</label>
+        <input type="date" [(ngModel)]="newRestaurant.dateOuverture" name="dateOuverture" class="form-control">
+      </div>
+      <div class="mt-2">
+        <button type="submit" (click)="addRestaurant()" class="btn btn-success">Ajouter</button>
+      </div>
+    </form>
+  </div>
+  

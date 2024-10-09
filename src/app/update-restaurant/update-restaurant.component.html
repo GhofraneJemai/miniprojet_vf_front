@@ -15,6 +15,10 @@
             <label>Adresse Restaurant</label>
             <input type="text" [(ngModel)]="currentRestaurant.adresseRestaurant" name="adresseRestaurant" class="form-control">
         </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>Type de Cuisine</label>
+            <input type="text" [(ngModel)]="currentRestaurant.typeCuisine" name="typeCuisine" class="form-control">
+        </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Date d'ouverture</label>
             <input type="date" [ngModel]="currentRestaurant.dateOuverture | date: 'yyyy-MM-dd'" 

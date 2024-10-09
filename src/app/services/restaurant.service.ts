@@ -10,12 +10,11 @@ export class RestaurantService {
   
   constructor() { 
     this.restaurants = [
-      {idRestaurant: 1, nomRestaurant: "Le Gourmet", adresseRestaurant: "123 Rue Principale", dateOuverture: new Date("01/14/2011")},
-      {idRestaurant: 2, nomRestaurant: "Pizza Palace", adresseRestaurant: "456 Avenue des Champs", dateOuverture: new Date("12/17/2010")},
-      {idRestaurant: 3, nomRestaurant: "Sushi World", adresseRestaurant: "789 Boulevard du Sushi", dateOuverture: new Date("02/20/2020")}
+      {idRestaurant: 1, nomRestaurant: "Le Gourmet", adresseRestaurant: "123 Rue Principale", typeCuisine:"Française",dateOuverture: new Date("01/14/2011")},
+      {idRestaurant: 2, nomRestaurant: "Pizza Palace", adresseRestaurant: "456 Avenue des Champs",typeCuisine:"Italienne", dateOuverture: new Date("12/17/2010")},
+      {idRestaurant: 3, nomRestaurant: "Sushi World", adresseRestaurant: "789 Boulevard du Sushi",typeCuisine:"japonaise", dateOuverture: new Date("02/20/2020")}
     ];
   }
-
   listeRestaurants(): Restaurant[] {
     return this.restaurants;
   }

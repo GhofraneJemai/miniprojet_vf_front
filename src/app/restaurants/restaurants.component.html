@@ -2,12 +2,13 @@
     <div class="card shadow mb-4">                    
       <div class="card-body">  
         <table class="table table-striped">
-          <tr> <th>Id</th><th>Nom</th> <th>Adresse</th> <th>Date Ouverture</th> </tr>
+          <tr> <th>Id</th><th>Nom</th> <th>Adresse</th> <th>TypeCuisine</th> <th>Date Ouverture</th> </tr>
           <tbody *ngFor="let restaurant of restaurants">
           <tr >
             <td>{{restaurant.idRestaurant}}</td>
             <td>{{restaurant.nomRestaurant}}</td>
             <td>{{restaurant.adresseRestaurant}}</td>
+            <td>{{restaurant.typeCuisine}}</td>
             <td>{{restaurant.dateOuverture | date:'dd/MM/yyyy'}}</td>
             <td><a class="btn btn-danger" (click)="supprimerRestaurant(restaurant)">Supprimer</a></td>
             <td><a class="btn btn-success" [routerLink]="['/updateRestaurant', restaurant.idRestaurant]">Modifier</a></td>

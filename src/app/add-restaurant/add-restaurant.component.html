@@ -15,9 +15,13 @@
         <label>Adresse Restaurant</label>
         <input type="text" [(ngModel)]="newRestaurant.adresseRestaurant" name="adresseRestaurant" class="form-control">
       </div>
-      <div class="col-sm-4 col-md-4 col-lg-4">
-        <label>Type de Cuisine</label>
-        <input type="text" [(ngModel)]="newRestaurant.typeCuisine" name="typeCuisine" class="form-control">
+      <div class="form-group col-sm-4 col-md-4 col-lg-4">
+        <label for="idType">Type</label>
+        <select class="form-control form-control-lg" id="idType" name="idType" [(ngModel)]="newIdType">
+            <option *ngFor="let type of types" [value]="type.idType">
+                {{type.nomType}}
+            </option>
+        </select>
       </div>
       <div class="col-sm-4 col-md-4 col-lg-4">
         <label>Date Ouverture</label>

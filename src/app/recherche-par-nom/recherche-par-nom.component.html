@@ -1,0 +1,39 @@
+<div class="container">
+  <form class="form-inline">
+    <div class="form-group mx-sm-3 mb-2 mt-2">
+      <label>Nom Restaurant en tapant</label>
+      <input #nom [(ngModel)]="searchTerm" name="searchTerm" class="form-control">
+    </div>
+  </form>
+<!--     <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2 mt-2 ">
+        <label>Nom Restaurant en tapant</label>
+        <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)">
+        </div>
+    </form> -->
+    <div class="card shadow mb-4">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nom</th>
+              <th>Adresse</th>
+              <th>Date d'Ouverture</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let restaurant of restaurants | searchFilter: searchTerm ">
+            <tr>
+              <td>{{restaurant.idRestaurant}}</td>
+              <td>{{restaurant.nomRestaurant}}</td>
+              <td>{{restaurant.adresseRestaurant}}</td>
+              <td>{{restaurant.dateOuverture | date:'dd/MM/yyyy'}}</td>
+              <td>{{restaurant.type.nomType}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

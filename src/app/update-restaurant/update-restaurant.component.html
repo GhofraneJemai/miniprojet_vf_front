@@ -1,35 +1,42 @@
 <div class="container">
     <div>
-        <h2>Modifier un Restaurant :</h2>
+      <h2>Modifier un Restaurant :</h2>
     </div>
-    <form>
-        <div hidden class="col-sm-2 col-md-2 col-lg-2">
-            <label>ID Restaurant</label>
-            <input type="text" [(ngModel)]="currentRestaurant.idRestaurant" name="idRestaurant" class="form-control">
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>Nom Restaurant</label>
-            <input type="text" [(ngModel)]="currentRestaurant.nomRestaurant" name="nomRestaurant" class="form-control">
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>Adresse Restaurant</label>
-            <input type="text" [(ngModel)]="currentRestaurant.adresseRestaurant" name="adresseRestaurant" class="form-control">
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>Type Restaurant</label>
-            <select class="form-control form-control-lg" id="idType" name="idType" [(ngModel)]="updatedTypeId">
-                <option *ngFor="let type of types" [value]="type.idType">
-                    {{type.nomType}}
-                </option>
-            </select>
-        </div>        
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>Date d'ouverture</label>
-            <input type="date" [ngModel]="currentRestaurant.dateOuverture | date: 'yyyy-MM-dd'" 
-            (ngModelChange)="currentRestaurant.dateOuverture = $event" name="dateOuverture" class="form-control">
-        </div>
-        <div class="mt-2">
-            <button type="submit" (click)="updateRestaurant()" class="btn btn-success">Modifier</button>
-        </div>
+    <form [formGroup]="restaurantForm" (ngSubmit)="updateRestaurant()">
+      <div class="col-sm-2 col-md-2 col-lg-2">
+        <label>ID Restaurant</label>
+        <input type="text" formControlName="idRestaurant" class="form-control" readonly>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Nom Restaurant</label>
+        <input type="text" formControlName="nomRestaurant" class="form-control">
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Adresse Restaurant</label>
+        <input type="text" formControlName="adresseRestaurant" class="form-control">
+      </div>
+      <div class="form-group col-sm-4 col-md-4 col-lg-4">
+        <label for="idType">Type Restaurant</label>
+        <select class="form-control form-control-lg" id="idType" formControlName="idType">
+          <option *ngFor="let type of types" [value]="type.idType">
+            {{ type.nomType }}
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Date Ouverture</label>
+        <input type="date" formControlName="dateOuverture" class="form-control">
+      </div>
+          <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Email du Restaurant</label>
+      <input type="email" formControlName="email" class="form-control" placeholder="Entrez l'email du restaurant">
+      <div *ngIf="restaurantForm.controls['email'].invalid && restaurantForm.controls['email'].touched">
+        <small class="text-danger">Veuillez entrer un email valide.</small>
+      </div>
+    </div>
+      <div class="mt-2">
+        <button type="submit" class="btn btn-success" [disabled]="restaurantForm.invalid">Modifier</button>
+      </div>
     </form>
-</div>
+  </div>
+  

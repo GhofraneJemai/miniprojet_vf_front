@@ -5,5 +5,6 @@ export class Restaurant {
     adresseRestaurant!: string;
     type!: Type;
     dateOuverture!: Date;
+    email!: string;
   }
   

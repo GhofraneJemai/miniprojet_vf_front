@@ -14,6 +14,8 @@ import { RechercheParTypeComponent } from './recherche-par-type/recherche-par-ty
 import { SearchFilterPipe } from './search-filter.pipe';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RechercheParNomComponent,
     RechercheParTypeComponent,
     SearchFilterPipe,
+    LoginComponent,
+    ForbiddenComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Restaurant } from '../model/restaurant.model';
 import { RestaurantService } from '../services/restaurant.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-restaurants',
@@ -10,7 +11,8 @@ export class RestaurantsComponent implements OnInit {
 
     restaurants? : Restaurant[]; //un tableau de restaurants
 
-  constructor(private restaurantService: RestaurantService) {
+  constructor(private restaurantService: RestaurantService,
+              public authService: AuthService) {
    //this.restaurants=[];
      }
 

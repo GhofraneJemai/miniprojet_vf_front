@@ -3,37 +3,76 @@
     <h2>Ajouter un Restaurant :</h2>
   </div>
   <form [formGroup]="restaurantForm" (ngSubmit)="addRestaurant()">
+    
     <div class="col-sm-2 col-md-2 col-lg-2">
       <label>ID Restaurant</label>
-      <input type="text" formControlName="idRestaurant" class="form-control">
-    </div>
-    <div class="col-sm-4 col-md-4 col-lg-4">
-      <label>Nom Restaurant</label>
-      <input type="text" formControlName="nomRestaurant" class="form-control">
-    </div>
-    <div class="col-sm-4 col-md-4 col-lg-4">
-      <label>Adresse Restaurant</label>
-      <input type="text" formControlName="adresseRestaurant" class="form-control">
-    </div>
-    <div class="form-group col-sm-4 col-md-4 col-lg-4">
-      <label for="idType">Type Restaurant</label>
-      <select class="form-control form-control-lg" id="idType" formControlName="idType">
-        <option *ngFor="let type of types" [value]="type.idType">
-          {{ type.nomType }}
-        </option>
-      </select>
-    </div>
-    <div class="col-sm-4 col-md-4 col-lg-4">
-      <label>Date Ouverture</label>
-      <input type="date" formControlName="dateOuverture" class="form-control">
-    </div>
-    <div class="col-sm-4 col-md-4 col-lg-4">
-      <label>Email du Restaurant</label>
-      <input type="email" formControlName="email" class="form-control" placeholder="Entrez l'email du restaurant">
-      <div *ngIf="restaurantForm.controls['email'].invalid && restaurantForm.controls['email'].touched">
-        <small class="text-danger">Veuillez entrer un email valide.</small>
+      <div class="input-group mb-3">
+        <input type="text" formControlName="idRestaurant" class="form-control" placeholder="Entrez l'ID du restaurant">
+      </div>
+      <div *ngIf="restaurantForm.controls['idRestaurant'].invalid && (restaurantForm.controls['idRestaurant'].dirty || restaurantForm.controls['idRestaurant'].touched)" class="text-danger">
+        <div *ngIf="restaurantForm.controls['idRestaurant'].errors?.['required']">L'ID du restaurant est requis.</div>
+        <div *ngIf="restaurantForm.controls['idRestaurant'].errors?.['maxlength']">L'ID ne peut pas dépasser 10 caractères.</div>
       </div>
     </div>
+    
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Nom Restaurant</label>
+      <div class="input-group mb-3">
+        <input type="text" formControlName="nomRestaurant" class="form-control" placeholder="Entrez le nom du restaurant">
+      </div>
+      <div *ngIf="restaurantForm.controls['nomRestaurant'].invalid && (restaurantForm.controls['nomRestaurant'].dirty || restaurantForm.controls['nomRestaurant'].touched)" class="text-danger">
+        <div *ngIf="restaurantForm.controls['nomRestaurant'].errors?.['required']">Le nom du restaurant est requis.</div>
+        <div *ngIf="restaurantForm.controls['nomRestaurant'].errors?.['minlength']">Le nom doit contenir au moins 3 caractères.</div>
+        
+      </div>
+    </div>
+    
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Adresse Restaurant</label>
+      <div class="input-group mb-3">
+        <input type="text" formControlName="adresseRestaurant" class="form-control" placeholder="Entrez l'adresse du restaurant">
+      </div>
+      <div *ngIf="restaurantForm.controls['adresseRestaurant'].invalid && (restaurantForm.controls['adresseRestaurant'].dirty || restaurantForm.controls['adresseRestaurant'].touched)" class="text-danger">
+        <div *ngIf="restaurantForm.controls['adresseRestaurant'].errors?.['required']">L'adresse du restaurant est requise.</div>
+        <div *ngIf="restaurantForm.controls['adresseRestaurant'].errors?.['minlength']">L'adresse doit contenir au moins 5 caractères.</div>
+      </div>
+    </div>
+    
+    <div class="form-group col-sm-4 col-md-4 col-lg-4">
+      <label for="idType">Type Restaurant</label>
+      <div class="input-group mb-3">
+        <select class="form-control form-control-lg" id="idType" formControlName="idType">
+          <option *ngFor="let type of types" [value]="type.idType">
+            {{ type.nomType }}
+          </option>
+        </select>
+      </div>
+      <div *ngIf="restaurantForm.controls['idType'].invalid && (restaurantForm.controls['idType'].dirty || restaurantForm.controls['idType'].touched)" class="text-danger">
+        <div *ngIf="restaurantForm.controls['idType'].errors?.['required']">Veuillez sélectionner un type de restaurant.</div>
+      </div>
+    </div>
+    
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Date Ouverture</label>
+      <div class="input-group mb-3">
+        <input type="date" formControlName="dateOuverture" class="form-control">
+      </div>
+      <div *ngIf="restaurantForm.controls['dateOuverture'].invalid && (restaurantForm.controls['dateOuverture'].dirty || restaurantForm.controls['dateOuverture'].touched)" class="text-danger">
+        <div *ngIf="restaurantForm.controls['dateOuverture'].errors?.['required']">La date d'ouverture est requise.</div>
+      </div>
+    </div>
+    
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Email du Restaurant</label>
+      <div class="input-group mb-3">
+        <input type="email" formControlName="email" class="form-control" placeholder="Entrez l'email du restaurant">
+      </div>
+      <div *ngIf="restaurantForm.controls['email'].invalid && (restaurantForm.controls['email'].dirty || restaurantForm.controls['email'].touched)" class="text-danger">
+        <div *ngIf="restaurantForm.controls['email'].errors?.['required']">L'email est requis.</div>
+        <div *ngIf="restaurantForm.controls['email'].errors?.['email']">Veuillez entrer un email valide.</div>
+      </div>
+    </div>
+    
     <div class="mt-2">
       <button type="submit" class="btn btn-success" [disabled]="restaurantForm.invalid">Ajouter</button>
     </div>

@@ -17,26 +17,32 @@
               Restaurants
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" routerLink="/add-restaurant">Ajouter</a></li>
+              <!-- Ajouter visible seulement pour les administrateurs -->
+              <a *ngIf="authService.isAdmin()" class="dropdown-item" routerLink="/add-restaurant">Ajouter</a>
               <li><a class="dropdown-item" href="#">Lister</a></li>
               <li><a class="dropdown-item" routerLink="/rechercheParType">Recherche Par Type</a></li>
               <li><a class="dropdown-item" routerLink="/rechercheParNom">Recherche Par Nom</a></li>
-
             </ul>
           </li>
         </ul>
+
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+
+        <!-- User Information -->
         <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link">{{ authService.loggedUser }}</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-bs-toggle="dropdown" aria-expanded="false">
-              Ghofrane
+              connexion
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">login</a></li>
-              <li><a class="dropdown-item" href="#">logout</a></li>
+              <li><a *ngIf="!authService.isloggedIn" class="dropdown-item" routerLink = "login">Login</a></li>
+              <li><a *ngIf="authService.isloggedIn" class="dropdown-item" (click) = "onLogout()">Logout</a></li>
               <li><a class="dropdown-item" href="#">Profile</a></li>
             </ul>
           </li>

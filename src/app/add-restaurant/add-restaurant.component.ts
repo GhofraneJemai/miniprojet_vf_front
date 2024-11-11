@@ -23,12 +23,12 @@ export class AddRestaurantComponent implements OnInit {
 
   ngOnInit(): void {
     this.restaurantForm = this.formBuilder.group({
-      idRestaurant: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]], 
-      nomRestaurant: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]], 
-      adresseRestaurant: ['', [Validators.required, Validators.minLength(5)]], 
-      idType: ['', [Validators.required]], 
-      dateOuverture: ['', [Validators.required]], 
-      email: ['', [Validators.required, Validators.email]] 
+      idRestaurant: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
+      nomRestaurant: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      adresseRestaurant: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      idType: ['', Validators.required],
+      dateOuverture: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
     });
 
     this.types = this.restaurantService.listeTypes();

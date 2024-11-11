@@ -11,8 +11,8 @@
             <td>{{restaurant.type.nomType}}</td>
             <td>{{restaurant.dateOuverture | date:'dd/MM/yyyy'}}</td>
             <td>{{restaurant.email}}</td>
-            <td><a class="btn btn-danger" (click)="supprimerRestaurant(restaurant)">Supprimer</a></td>
-            <td><a class="btn btn-success" [routerLink]="['/updateRestaurant', restaurant.idRestaurant]">Modifier</a></td>
+            <td><a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerRestaurant(restaurant)">Supprimer</a></td>
+            <td><a *ngIf="authService.isAdmin()" class="btn btn-success" [routerLink]="['/updateRestaurant', restaurant.idRestaurant]">Modifier</a></td>
           </tr>
           </tbody>
         </table>

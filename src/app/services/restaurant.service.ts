@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Restaurant } from '../model/restaurant.model';
 import { Type } from '../model/type.model';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -80,6 +81,15 @@ export class RestaurantService {
     this.supprimerRestaurant(r);
     this.ajouterRestaurant(r);
     this.trierRestaurants();
+  }
+  
+  ajouterType(type: Type): Observable<Type> {
+    // Ajoute le type au tableau local
+    this.types.push(type);
+    return new Observable(observer => {
+      observer.next(type); // Envoie le type ajouté
+      observer.complete();  // Terminer l'Observable
+    });
   }
   
 }

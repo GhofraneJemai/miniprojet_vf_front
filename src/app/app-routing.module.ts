@@ -8,6 +8,7 @@ import { RechercheParTypeComponent } from './recherche-par-type/recherche-par-ty
 import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { RestaurantGuard } from './restaurant.guard';
+import { ListeTypesComponent } from './liste-types/liste-types.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: "rechercheParNom", component : RechercheParNomComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forbidden', component: ForbiddenComponent},
+  {path: "listeTypes", component : ListeTypesComponent},
   { path: "", redirectTo: "restaurants", pathMatch: "full" }
 ];
 

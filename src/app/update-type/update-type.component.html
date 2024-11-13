@@ -1,0 +1,19 @@
+<form>
+    <!-- Si ajout est vrai, l'ID n'est pas affiché -->
+    <div [hidden]="ajout">
+        <label>ID Type</label>
+        <input type="text" [(ngModel)]="type.idType" name="idType" class="form-control w-25" readonly>
+    </div>
+
+    <div>
+        <label>Nom Type</label>
+        <input type="text" [(ngModel)]="type.nomType" name="nomType" class="form-control" placeholder="Entrez un nom de type...">
+    </div>
+    
+    <div class="mt-2">
+        <!-- Le bouton de soumission est désactivé si le champ nomType est vide -->
+        <button type="submit" [disabled]="!type.nomType" class="btn btn-success"
+            (click)="saveType()">{{ajout ? 'Ajouter' : 'Modifier'}}
+        </button>
+    </div>
+</form>

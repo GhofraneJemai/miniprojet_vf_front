@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Type } from '../model/type.model'; // Assurez-vous d'avoir un modèle Type
+import { Type } from '../model/type.model';  // Importer le modèle Type
 
 @Component({
   selector: 'app-update-type',
@@ -9,27 +9,28 @@ import { Type } from '../model/type.model'; // Assurez-vous d'avoir un modèle T
 export class UpdateTypeComponent implements OnInit {
 
   @Input()
-  type!: Type; // Définir le type avec la structure appropriée
+  type!: Type;  // Remplacer Categorie par Type
 
   @Input()
-  ajout!: boolean; // Indiquer si c'est un mode ajout ou modification
+  ajout!: boolean;
 
-  @Output()
-  typeUpdated = new EventEmitter<Type>(); // Émettre l'objet type lors de la sauvegarde
+  @Output() 
+  typeUpdated = new EventEmitter<Type>();  // Émettre un événement de type Type
 
   constructor() { }
 
   ngOnInit(): void {
-    // Logique d'initialisation si nécessaire
   }
 
+  // Méthode pour sauvegarder le type et émettre l'événement
   saveType() {
-    this.typeUpdated.emit(this.type); // Émettre l'événement avec le type modifié ou ajouté
+    this.typeUpdated.emit(this.type);  // Émettre le type mis à jour
   }
 
+  // Réinitialiser les données du type pour un ajout
   modeAjout() {
     this.ajout = true;
-    this.type.idType = 0; // Réinitialiser l'ID pour l'ajout
-    this.type.nomType = ""; // Réinitialiser le nom pour l'ajout
+    this.type.idType = 0;  // Réinitialiser l'ID pour un nouvel ajout
+    this.type.nomType = "";  // Réinitialiser le nom du type
   }
 }

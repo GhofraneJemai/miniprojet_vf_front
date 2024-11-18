@@ -1,30 +1,35 @@
 <div class="container">
-    <div class="col-sm-4 col-md-4 col-lg-4 mb-4"> 
-        <app-update-type 
-        (typeUpdated)="typeUpdated($event)"  
-        [type]="updatedType" 
-        [ajout]="ajout"
-        >
-        </app-update-type>
-    </div>
-    <div class="card shadow mb-4">
-      <div class="card-body">
-        <table class="table table-striped">
-          <thead>
-            <tr> 
-              <th>Id</th>
-              <th>Nom Type</th> 
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let type of types">
-              <td>{{type.idType}}</td>
-              <td>{{type.nomType}}</td>
-              <td><a class="btn btn-success"  (click)="updateType(type)">Editer</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+  <!-- Section pour l'ajout ou la modification d'un type de cuisine -->
+  <div class="col-sm-4 col-md-4 col-lg-4 mb-4"> 
+    <app-update-type (typeUpdated)="typeUpdated($event)" [type]="updatedType" [ajout]="ajout"></app-update-type>
+  </div>
+
+  <!-- Section pour afficher la liste des types de cuisine -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nom du Type de Cuisine</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let type of types">
+            <td>{{ type.idType }}</td>
+            <td>{{ type.nomType }}</td>
+            <td>
+              <button class="btn btn-success" (click)="updateType(type)">Modifier</button>
+            </td>
+            <td>
+              <button class="btn btn-danger" (click)="supprimerType(type)">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  
+
+</div>

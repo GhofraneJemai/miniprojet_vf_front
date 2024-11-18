@@ -9,30 +9,45 @@ import { Router } from '@angular/router';
   templateUrl: './recherche-par-type.component.html'
 })
 export class RechercheParTypeComponent {
-  restaurants? : Restaurant[];
-  IdType!: number; 
-  types!: Type[]; 
+  restaurants?: Restaurant[];
+  IdType!: number;
+  types!: Type[];
 
-  constructor(private restaurantService: RestaurantService,
-              private router: Router,
-  ) {
-    //this.restaurants=[];
-      }
-      ngOnInit(): void {
-        this.restaurants = this.restaurantService.listeRestaurants();
-        this.types = this.restaurantService.listeTypes();
-      }
-      supprimerRestaurant(r: Restaurant) {
-        let conf = confirm("Etes-vous sûr ?");
-        if (conf) {
-          this.restaurantService.supprimerRestaurant(r);
-        }
-        this.restaurants = this.restaurantService.rechercherParType(this.IdType);
-      }
-      onChange(){
-        //console.log(this.IdType);
-        this.restaurants = this.restaurantService.rechercherParType(this.IdType);
+  constructor(
+    private restaurantService: RestaurantService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.restaurantService.listeRestaurants().subscribe(restaurants => {
+      this.restaurants = restaurants;
+    });
+
+    this.restaurantService.listeTypes().subscribe(typesWrapper => {
+      console.log(typesWrapper);
+      this.types = typesWrapper._embedded.types;
+    });
+  }
+
+  supprimerRestaurant(r: Restaurant) {
+    let conf = confirm("Etes-vous sûr ?");
+    if (conf) {
+      this.restaurantService.supprimerRestaurant(r.idRestaurant).subscribe(() => {
+        this.onChange(); // Rafraîchir la liste après suppression
+      });
+    }
+  }
+
+  onChange() {
+    if (this.IdType) {
+      this.restaurantService.rechercherParType(this.IdType).subscribe(restaurants => {
+        this.restaurants = restaurants;
         console.log(this.restaurants);
-      }
-
+      });
+    } else {
+      this.restaurantService.listeRestaurants().subscribe(restaurants => {
+        this.restaurants = restaurants;
+      });
+    }
+  }
 }

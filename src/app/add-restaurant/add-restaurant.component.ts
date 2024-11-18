@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { RestaurantService } from '../services/restaurant.service'; // Importer votre service
+import { RestaurantService } from '../services/restaurant.service';
 import { Type } from '../model/type.model';
 import { Restaurant } from '../model/restaurant.model';
 
@@ -12,49 +12,66 @@ import { Restaurant } from '../model/restaurant.model';
 })
 export class AddRestaurantComponent implements OnInit {
   restaurantForm!: FormGroup;
-  types: Type[] = []; // Pour stocker les types de cuisine
+  types: Type[] = []; // Liste des types de cuisine
 
   constructor(
     private formBuilder: FormBuilder,
-    private restaurantService: RestaurantService, // Injecter le service
+    private restaurantService: RestaurantService,
     private router: Router,
     private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
+    // Initialisation du formulaire avec les champs requis
     this.restaurantForm = this.formBuilder.group({
-      idRestaurant: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
       nomRestaurant: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       adresseRestaurant: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       idType: ['', Validators.required],
       dateOuverture: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
     });
 
-    this.types = this.restaurantService.listeTypes();
+    // Chargement des types de cuisine disponibles
+    this.restaurantService.listeTypes().subscribe(
+      (types) => {
+        this.types = types._embedded.types;
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des types:', error);
+        this.toastr.error('Impossible de charger les types de cuisine', 'Erreur');
+      }
+    );
   }
 
   addRestaurant(): void {
     if (this.restaurantForm.valid) {
-      const newRestaurant = this.restaurantForm.value;
+      const formData = this.restaurantForm.value;
 
-      // Vérifiez si l'identifiant du restaurant existe déjà
-      const existingRestaurant = this.restaurantService.consulterRestaurant(newRestaurant.idRestaurant);
-      if (existingRestaurant) {
-        this.toastr.error('L\'identifiant du restaurant existe déjà. Veuillez en choisir un autre.', 'Erreur');
+      // Récupération du type sélectionné par l'utilisateur
+      const selectedType = this.types.find((type) => type.idType === +formData.idType);
+
+      if (!selectedType) {
+        this.toastr.error('Le type de cuisine sélectionné est invalide', 'Erreur');
         return;
       }
 
-      // Obtenez le type de cuisine en fonction de l'ID sélectionné
-      const newType = this.restaurantService.consulterType(newRestaurant.idType);
-      newRestaurant.type = newType;    
+      const newRestaurant: Restaurant = {
+        ...formData,
+        type: selectedType,
+      };
 
-      this.restaurantService.ajouterRestaurant(newRestaurant);
-
-      this.restaurantForm.reset();
-
-      this.toastr.success('Restaurant ajouté avec succès', 'Succès');
-      this.router.navigate(['restaurants']);
+      // Envoi des données au service pour ajouter le restaurant
+      this.restaurantService.ajouterRestaurant(newRestaurant).subscribe(
+        () => {
+          this.toastr.success('Restaurant ajouté avec succès', 'Succès');
+          this.restaurantForm.reset();
+          this.router.navigate(['restaurants']);
+        },
+        (error) => {
+          console.error('Erreur lors de l\'ajout du restaurant:', error);
+          this.toastr.error('Une erreur est survenue lors de l\'ajout', 'Erreur');
+        }
+      );
     } else {
       this.toastr.error('Veuillez remplir tous les champs requis', 'Erreur');
     }

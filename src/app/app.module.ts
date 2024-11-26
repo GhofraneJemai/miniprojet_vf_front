@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { AddRestaurantComponent } from './add-restaurant/add-restaurant.component';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateRestaurantComponent } from './update-restaurant/update-restaurant.component';
@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ListeTypesComponent } from './liste-types/liste-types.component';
 import { UpdateTypeComponent } from './update-type/update-type.component';
+import { TokenInterceptor } from './services/token.interceptor';
 
 
 @NgModule({
@@ -45,7 +46,10 @@ import { UpdateTypeComponent } from './update-type/update-type.component';
   ],
   providers: [
     provideHttpClient(withFetch()),
-    provideClientHydration()
+    provideClientHydration(),
+    { provide : HTTP_INTERCEPTORS,
+      useClass : TokenInterceptor,
+       multi : true}
   ],
   bootstrap: [AppComponent]
 })

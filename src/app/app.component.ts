@@ -12,26 +12,13 @@ export class AppComponent implements OnInit {
 
   constructor(public authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    // Vérifier si nous sommes dans un environnement de navigateur
-    if (typeof window !== 'undefined' && window.localStorage) {
-      let isloggedin: string;
-      let loggedUser: string;
+  ngOnInit () {
 
-      // Récupérer les données depuis le localStorage, avec une valeur par défaut vide si null
-      isloggedin = localStorage.getItem('isloggedIn') || '';
-      loggedUser = localStorage.getItem('loggedUser') || '';
-
-      // Vérifier si l'utilisateur est connecté
-      if (isloggedin !== "true" || !loggedUser) {
-        // Si l'utilisateur n'est pas connecté, rediriger vers la page de login
-        this.router.navigate(['/login']);
-      } else {
-        // Si l'utilisateur est connecté, définir l'utilisateur à partir du localStorage
-        this.authService.setLoggedUserFromLocalStorage(loggedUser);
-      }
+    this.authService.loadToken();
+    if (this.authService.getToken()==null ||
+     this.authService.isTokenExpired())
+    this.router.navigate(['/login']);
     }
-  }
 
   onLogout(): void {
     this.authService.logout();

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Restaurant } from '../model/restaurant.model';
 import { Type } from '../model/type.model';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TypeWrapper } from '../model/typeWrapped.model';
 import { AuthService } from './auth.service';  // Assurez-vous d'importer le service d'authentification
@@ -77,17 +77,40 @@ export class RestaurantService {
   }
 
   ajouterType(type: Type): Observable<Type> {
+    // Remove idType if it's set to 0 or undefined, assuming the backend auto-generates the ID
+    if (type.idType === 0 || !type.idType) {
+      delete type.idType;
+    }
+  
     let jwt = this.authService.getToken();
-    jwt = "Bearer " + jwt;
-    let httpHeaders = new HttpHeaders({"Authorization": jwt});
-    return this.http.post<Type>(this.apiURLType, type, { headers: httpHeaders });
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwt}`
+      })
+    };
+  
+    return this.http.post<Type>(this.apiURLType, type, httpOptions);
   }
-
+  
+  
   supprimerType(id: number): Observable<void> {
-    const url = `${this.apiURLType}/delete/${id}`;
+    // Correct URL with the /delete/{id} endpoint
+    const url = `http://localhost:8090/restaurants/api/type/${id}`;
+  
     let jwt = this.authService.getToken();
     jwt = "Bearer " + jwt;
-    let httpHeaders = new HttpHeaders({"Authorization": jwt});
-    return this.http.delete<void>(url, { headers: httpHeaders });
+    let httpHeaders = new HttpHeaders({
+      "Authorization": jwt
+    });
+  
+    return this.http.delete<void>(url, { headers: httpHeaders }).pipe(
+      catchError((error) => {
+        console.error("Erreur lors de la suppression :", error);
+        return throwError(error);  // Propagation de l'erreur
+      })
+    );
   }
+  
+  
 }

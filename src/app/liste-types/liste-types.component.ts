@@ -46,10 +46,12 @@ export class ListeTypesComponent implements OnInit {
   supprimerType(type: Type) {
     let conf = confirm("Êtes-vous sûr de vouloir supprimer ce type?");
     if (conf) {
+      if (type.idType !== undefined && type.idType !== 0) {
       this.restaurantService.supprimerType(type.idType).subscribe(() => {
         console.log("Type supprimé");
         this.chargerTypes();  // Recharger la liste des types après suppression
       });
     }
+  }
   }
 }

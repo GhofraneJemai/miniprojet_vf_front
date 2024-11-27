@@ -24,9 +24,10 @@ export class UpdateTypeComponent implements OnInit {
 
   // Méthode pour sauvegarder le type et émettre l'événement
   saveType() {
-    this.typeUpdated.emit(this.type);  // Émettre le type mis à jour
+    console.log('Saving type:', this.type);  // Debugging output
+    this.typeUpdated.emit(this.type); // Emit the type to parent
   }
-
+  
   // Réinitialiser les données du type pour un ajout
   modeAjout() {
     this.ajout = true;
